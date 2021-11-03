@@ -59,20 +59,21 @@ for i in diccionario_compras:
         else:
             comprobador = False
             for k in range(hoja.max_row):
-                if hoja["H"+str(j)].value == hoja["H"+str(k+1)].value and j!=k+1:
+                if hoja["H" + str(j)].value == hoja["H"+str(k+1)].value and j!=k+1:
                     comprobador = True
 
             if not comprobador:
                 for k in letras:
                     hoja_nueva[k + str(contador)] = hoja[k + str(j)].value
 
-            elif comprobador and hoja["H"+str(j)].value not in folios_procesados:
-                folios_procesados.append(hoja["H" + str(j)].value)
+            elif comprobador and [hoja["H" + str(j)].value, hoja["J" + str(j)].value] not in folios_procesados:
+                folios_procesados.append([hoja["H" + str(j)].value, hoja["J" + str(j)].value])
                 cantidad_total = 0
                 monto_total = 0
                 for k in range(hoja.max_row):
-                    h =  k+1
-                    if hoja["H"+str(j)].value == hoja["H"+str(h)].value:
+                    h = k+1
+                    if [hoja["H" + str(j)].value, hoja["J" + str(j)].value]  == \
+                            [hoja["H" + str(h)].value, hoja["J" + str(h)].value] :
                         numero = str(hoja["K"+str(h)].value)
                         numero = numero.split(",")
                         numero = ".".join(numero)
@@ -83,10 +84,7 @@ for i in diccionario_compras:
                         monto = str(hoja["M" + str(h)].value)
                         monto= monto.split(",")
                         monto = ".".join(monto)
-                        monto_total += float(monto)
-                        if h == 26:
-                            print(precio)
-                        ponderador = float(numero) * float(precio)
+                        monto_total += round(float(monto),0)
                 precio_promedio = monto_total/cantidad_total
                 for k in letras_2:
                     hoja_nueva[k + str(contador)] = hoja[k + str(j)].value
