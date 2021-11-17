@@ -65,6 +65,7 @@ for i in diccionario_compras:
             if not comprobador:
                 for k in letras:
                     hoja_nueva[k + str(contador)] = hoja[k + str(j)].value
+                contador += 1
 
             elif comprobador and [hoja["H" + str(j)].value, hoja["J" + str(j)].value] not in folios_procesados:
                 folios_procesados.append([hoja["H" + str(j)].value, hoja["J" + str(j)].value])
